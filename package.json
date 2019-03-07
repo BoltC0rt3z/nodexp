@@ -1,0 +1,25 @@
+{
+  "name": "nodexp",
+  "version": "1.0.0",
+  "description": "Node.js &amp; Express App",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BoltC0rt3z/nodexp.git"
+  },
+  "author": "BoltC0rt3z",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/BoltC0rt3z/nodexp/issues"
+  },
+  "homepage": "https://github.com/BoltC0rt3z/nodexp#readme",
+  "dependencies": {
+    "express": "^4.16.4"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.10"
+  }
+}
