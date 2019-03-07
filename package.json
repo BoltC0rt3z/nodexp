@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/BoltC0rt3z/nodexp#readme",
   "dependencies": {
+    "body-parser": "^1.18.3",
     "express": "^4.16.4",
     "mongoose": "^5.4.17",
     "pug": "^2.0.3"
