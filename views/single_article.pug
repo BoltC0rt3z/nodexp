@@ -1,0 +1,9 @@
+extends layout
+
+block content
+	.blog-post
+		h2.blog-post-title #{title}
+		p.blog-post-meta by #{author}
+		hr
+		p
+			blockquote | #{body}
