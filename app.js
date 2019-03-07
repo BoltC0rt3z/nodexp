@@ -1,8 +1,26 @@
 const express = require("express");
 const path = require("path");
+const mongoose = require("mongoose");
+
+// Configure Database
+mongoose.connect("mongodb://localhost/nodexp", { useNewUrlParser: true });
+let db = mongoose.connection;
+
+// Check connections
+db.once("open", () => {
+  console.log("Connected to Mongodb");
+});
+
+// Check for db errors
+db.on("error", error => {
+  console.log(error);
+});
 
 // Init App
 const app = express();
+
+// Models sections
+let Articles = require("./models/articles");
 
 // View Engine
 app.set("views", path.join(__dirname, "views"));
@@ -16,29 +34,15 @@ app.get("/", (req, res) => {
 });
 
 app.get("/articles/add", (req, res) => {
-  let articles = [
-    {
-      id: 1,
-      title: "some title",
-      author: "BoltC0rt3z",
-      body: "this a body"
-    },
-    {
-      id: 2,
-      title: "some title 2",
-      author: "jane",
-      body: "this a body 2"
-    },
-    {
-      id: 3,
-      title: "some title 3",
-      author: "John",
-      body: "this a body 3"
+  Articles.find({}, (error, articles) => {
+    if (error) {
+      console.log(error);
+    } else {
+      res.render("add_articles", {
+        title: "Add articles",
+        articles: articles
+      });
     }
-  ]
-  res.render("add_articles", {
-    title: "Add articles",
-    articles: articles
   });
 });
 
