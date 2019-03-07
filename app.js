@@ -35,21 +35,37 @@ app.use(bodyParser.json());
 
 // Main Route
 app.get("/", (req, res) => {
-  res.render("index", {
-    title: "Hello guys"
+  Articles.find({}, (error, articles) => {
+    if (error) {
+      console.log(error);
+    } else {
+      res.render("index", {
+        title: "Articles",
+        articles: articles
+      });
+    }
   });
 });
 
 // Add Route
 app.get("/articles/add", (req, res) => {
-  Articles.find({}, (error, articles) => {
+  res.render("add_articles", {
+    title: "Add articles"
+  });
+});
+
+// Add Submit POST Route
+app.post("/articles/add", (req, res) => {
+  let article = new Articles();
+  article.title = req.body.title;
+  article.author = req.body.author;
+  article.body = req.body.body;
+
+  article.save(error => {
     if (error) {
       console.log(error);
     } else {
-      res.render("add_articles", {
-        title: "Add articles",
-        articles: articles
-      });
+      res.redirect("/");
     }
   });
 });
