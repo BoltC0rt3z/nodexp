@@ -2,8 +2,10 @@ extends layout
 
 block content
 	.blog-post
-		h2.blog-post-title #{title}
-		p.blog-post-meta by #{author}
+		h2.blog-post-title #{article.title}
+		p.blog-post-meta by #{article.author}
 		hr
 		p
-			blockquote | #{body}
+			blockquote #{article.body}
+		a.btn.btn-default(href="/article/edit/"+article._id) Edit
+		a.btn.btn-danger.delete-article(href="#", data-id=article._id) Delete

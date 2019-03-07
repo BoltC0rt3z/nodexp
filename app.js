@@ -54,9 +54,7 @@ app.get("/", (req, res) => {
 app.get("/article/:id", (req, res) => {
   Articles.findById(req.params.id, (error, article) => {
     res.render("single_article", {
-     title: article.title,
-     author: article.author,
-     body: article.body
+      article: article
     });
   });
 });
@@ -80,6 +78,47 @@ app.post("/articles/add", (req, res) => {
       console.log(error);
     } else {
       res.redirect("/");
+    }
+  });
+});
+
+// Load edit form
+app.get("/article/edit/:id", (req, res) => {
+  Articles.findById(req.params.id, (error, article) => {
+    res.render("edit_article", {
+      title: "Edit article",
+      article: article
+    });
+  });
+});
+
+// Update article
+app.post("/article/edit/:id", (req, res) => {
+  let article = {};
+  article.title = req.body.title;
+  article.author = req.body.author;
+  article.body = req.body.body;
+
+  let query = { _id: req.params.id };
+
+  Articles.update(query, article, error => {
+    if (error) {
+      console.log(error);
+    } else {
+      res.redirect(`/article/${req.params.id}`);
+    }
+  });
+});
+
+// Delete an article
+app.delete("/article/:id", (req, res) => {
+  let query = { _id: req.params.id };
+
+  Articles.deleteOne(query, error => {
+    if (error) {
+      console.log(error);
+    } else {
+      res.send("Success");
     }
   });
 });
