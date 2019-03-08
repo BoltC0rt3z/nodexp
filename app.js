@@ -89,8 +89,13 @@ app.get("/", (req, res) => {
 });
 
 // Route Files
+// Article route
 let articles = require("./routes/articles");
 app.use("/articles", articles);
+
+// User route
+let users = require("./routes/users");
+app.use("/users", users);
 
 // configure PORT
 PORT = process.env.PORT || 3000;

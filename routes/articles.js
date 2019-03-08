@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-// Models sections
+//  Article Models
 let Articles = require("../models/articles");
 
 // Add Route

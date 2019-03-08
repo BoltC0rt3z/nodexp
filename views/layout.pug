@@ -8,7 +8,7 @@ html
 
     body
         nav.navbar.navbar-expand-md.navbar-dark.bg-dark
-            a.navbar-brand(href='#') Articles
+            a.navbar-brand(href='/') Articles
             button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarsExampleDefault', aria-controls='navbarsExampleDefault', aria-expanded='false', aria-label='Toggle navigation')
                 span.navbar-toggler-icon
             #navbarsExampleDefault.collapse.navbar-collapse
@@ -25,6 +25,11 @@ html
                             a.dropdown-item(href='#') Action
                             a.dropdown-item(href='#') Another action
                             a.dropdown-item(href='#') Something else here
+                ul.navbar-nav.navbar-right
+                    li.nav-item
+                        a.nav-link(href='/users/register') Register
+                    li.nav-item
+                        a.nav-link(href='/users/login') Login
         .container
             br
             != messages('message', locals)
