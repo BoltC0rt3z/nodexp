@@ -4,9 +4,11 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const session = require("express-session");
 const expressValidator = require("express-validator");
+const config = require("./config/database");
+const passport = require("passport");
 
 // Configure Database
-mongoose.connect("mongodb://localhost/nodexp", { useNewUrlParser: true });
+mongoose.connect(config.database, { useNewUrlParser: true });
 let db = mongoose.connection;
 
 // Check connections
@@ -73,6 +75,19 @@ app.use(
     }
   })
 );
+
+// Passport config
+require("./config/passport")(passport);
+
+// Passport middleware
+app.use(passport.initialize());
+app.use(passport.session());
+
+//
+app.get("*", (req, res, next) => {
+  res.locals.user = req.user || null;
+  next()
+});
 
 // Main Route
 app.get("/", (req, res) => {

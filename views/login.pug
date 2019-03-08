@@ -5,9 +5,9 @@ block content
     form(method="POST", action="/users/login")
         #form-group
             label Username:
-            input.form-control(name="username", type="text", value=username)
+            input.form-control(name="username", type="text")
         #form-group
             label Password:
-            input.form-control(name="password", type="password" value=password)
+            input.form-control(name="password", type="password")
         br
         input.btn.btn-primary(type="submit", value="Submit")
