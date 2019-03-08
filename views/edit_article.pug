@@ -2,7 +2,7 @@ extends layout
 
 block content
     h1 #{Title}
-    form(method="POST", action="/article/edit/"+article._id)
+    form(method="POST", action="/articles/edit/"+article._id)
         #form-group
             label Title:
             input.form-control(name="title", type="text" value=article.title)
@@ -14,4 +14,4 @@ block content
             textarea.form-control(name="body")= article.body
         span
             input.btn.btn-primary(type="submit", value="Submit")
-            a.btn.btn-default(href="/article/"+article._id) Cancel
+            a.btn.btn-default(href="/articles/"+article._id) Cancel
