@@ -1,0 +1,9 @@
+{
+  "development": {
+    "database": "nodexp",
+    "host": "localhost"
+  },
+  "production": {
+    "use_env_variable": "MONGODB_URI"
+  }
+}
