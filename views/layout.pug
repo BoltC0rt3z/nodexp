@@ -17,8 +17,9 @@ html
                         a.nav-link(href='/')
                             | Home
                             span.sr-only (current)
-                    li.nav-item
-                        a.nav-link(href='/articles/add') Add articles
+                    if user
+                        li.nav-item
+                            a.nav-link(href='/articles/add') Add articles
                     li.nav-item.dropdown
                         a#dropdown01.nav-link.dropdown-toggle(href='#', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Dropdown
                         .dropdown-menu(aria-labelledby='dropdown01')
