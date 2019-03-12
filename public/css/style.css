@@ -9,3 +9,17 @@
     background-color: #dff0d8;
     border-color: #d6e9c6;
 }
+
+.blog-paragraph {
+    font-family: "Open Sans";
+    margin: 0 auto;
+    padding-bottom: 70px;
+}
+
+.blog-paragraph:first-letter {
+    color: #e35b5a;
+    float: left;
+    font-size: 70px;
+    line-height: 60px;
+    padding: 0 8px;
+}

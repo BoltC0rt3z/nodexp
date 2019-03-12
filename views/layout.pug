@@ -1,14 +1,14 @@
 doctype html
 html
     head
-        title Knowledge base
+        title Nodexp
         link(rel='stylesheet', href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css', integrity='sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T', crossorigin='anonymous')
         link(rel='stylesheet', href='/css/style.css')
 
 
     body
         nav.navbar.navbar-expand-md.navbar-dark.bg-dark
-            a.navbar-brand(href='/') Articles
+            a.navbar-brand(href='/') Nodexp
             button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarsExampleDefault', aria-controls='navbarsExampleDefault', aria-expanded='false', aria-label='Toggle navigation')
                 span.navbar-toggler-icon
             #navbarsExampleDefault.collapse.navbar-collapse
@@ -20,12 +20,6 @@ html
                     if user
                         li.nav-item
                             a.nav-link(href='/articles/add') Add articles
-                    li.nav-item.dropdown
-                        a#dropdown01.nav-link.dropdown-toggle(href='#', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Dropdown
-                        .dropdown-menu(aria-labelledby='dropdown01')
-                            a.dropdown-item(href='#') Action
-                            a.dropdown-item(href='#') Another action
-                            a.dropdown-item(href='#') Something else here
                 ul.navbar-nav.navbar-right
                     if user
                         li.nav-item
@@ -35,17 +29,18 @@ html
                             a.nav-link(href='/users/register') Register
                         li.nav-item
                             a.nav-link(href='/users/login') Login
-        .container
-            br
+        .container.pt-1
             != messages('message', locals)
             if errors
                 each error in errors
                     div(class="alert alert-danger") #{error.msg}
-            block content
-            br
-            hr
-            footer
-                p Copyright &copy 2019
+        block content
+
+        .container
+            .footer-copyright.text-center.py-2
+                hr
+                | © 2019 Copyright | by
+                a.text-info(href="https://github.com/BoltC0rt3z" style=("text-decoration:none"))  BoltC0rt3z
         script(src='https://code.jquery.com/jquery-3.1.1.min.js')
         script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js', integrity='sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1', crossorigin='anonymous')
         script(src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js', integrity='sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM', crossorigin='anonymous')

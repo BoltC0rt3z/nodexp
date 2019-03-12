@@ -1,13 +1,17 @@
 extends layout
 
 block content
-	.blog-post
-		h2.blog-post-title #{article.title}
-		p.blog-post-meta by #{author}
-		hr
-		p
-			blockquote #{article.body}
-		if user
-			if user.id == article.author
-				a.btn.btn-default(href="/articles/edit/"+article._id) Edit
-				a.btn.btn-danger.delete-article(href="#", data-id=article._id) Delete
+	.container.pt-3
+		.blog-post
+			h2.blog-post-title #{article.title}
+			p.blog-post-meta by #{author}
+				small.text-muted  | #{date}
+			.container-fluid.px-0.py-1
+				- var url = image_url;
+				img.img-fluid.mx-auto.d-block(src=url, alt='image')
+			hr
+			p.text-justify.blog-paragraph #{article.body}
+			if user
+				if user.id == article.author
+					a.btn.btn-default(href="/articles/edit/"+article._id) Edit
+					a.btn.btn-danger.delete-article(href="#", data-id=article._id) Delete

@@ -6,10 +6,21 @@ const session = require("express-session");
 const expressValidator = require("express-validator");
 const config = require("./config/database");
 const passport = require("passport");
+const moment = require("moment");
 
 // Configure Database
 mongoose.connect(config.database, { useNewUrlParser: true });
 let db = mongoose.connection;
+
+// Logger function
+const logger = (req, res, next) => {
+  console.log(
+    `${req.method} : ${req.protocol}://${req.get("host")}${req.originalUrl} : ${moment().format(
+      "llll"
+    )}`
+  );
+  next()
+};
 
 // Check connections
 db.once("open", () => {
@@ -26,6 +37,9 @@ const app = express();
 
 // Models sections
 let Articles = require("./models/articles");
+
+// date logger middleware
+app.use(logger);
 
 // View Engine
 app.set("views", path.join(__dirname, "views"));
@@ -86,7 +100,7 @@ app.use(passport.session());
 //
 app.get("*", (req, res, next) => {
   res.locals.user = req.user || null;
-  next()
+  next();
 });
 
 // Main Route
@@ -97,7 +111,8 @@ app.get("/", (req, res) => {
     } else {
       res.render("index", {
         title: "Articles",
-        articles: articles
+        articles: articles,
+        moment: moment
       });
     }
   });

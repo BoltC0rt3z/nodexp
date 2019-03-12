@@ -1,8 +1,20 @@
 extends layout
 
 block content
-    h1 #{title}
-    ul.list-group
-        each article, i in articles
-            li.list-group-item
-                a(href="/articles/"+article._id)= article.title
+    .container-fluid.px-0.mt-0
+        img.img-fluid(src='https://images.unsplash.com/photo-1499728603263-13726abce5fd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=3300&q=80', alt='image')
+    .container
+        br
+        h1 #{title}
+        .row
+            each article, i in articles
+                .col-sm-4.pt-3
+                    .card
+                        - var url = article.image_url;
+                        img.card-img-top(src=url alt="card_image" style=("height:250px"))
+                        .card-body
+                            h5.card-title
+                                a.text-dark(href="/articles/"+article._id)= article.title
+                            p.card-text
+                                small.text-muted #{moment(article.created_on).fromNow()}
+

@@ -10,9 +10,16 @@ let articleSchema = mongoose.Schema({
     type: String,
     required: true
   },
+  image_url: {
+    type: String
+  },
   body: {
     type: String,
     required: true
+  },
+  created_on: {
+    type: Date,
+    default: Date.now
   }
 });
 

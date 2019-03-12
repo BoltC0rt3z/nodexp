@@ -1,14 +1,19 @@
 extends layout
 
 block content
-    h1 #{Title}
-    form(method="POST", action="/articles/edit/"+article._id)
-        #form-group
-            label Title:
-            input.form-control(name="title", type="text" value=article.title)
-        #form-group
-            label Body:
-            textarea.form-control(name="body")= article.body
-        span
-            input.btn.btn-primary(type="submit", value="Submit")
-            a.btn.btn-default(href="/articles/"+article._id) Cancel
+    .container.pt-3
+        h1 #{Title}
+        form(method="POST", action="/articles/edit/"+article._id)
+            #form-group
+                label Title:
+                input.form-control(name="title", type="text" value=article.title)
+            #form-group
+                label Image_Url:
+                input.form-control(name="image_url", type="text", value=article.image_url)
+            #form-group
+                label Body:
+                textarea.form-control(name="body")= article.body
+            br
+            span
+                input.btn.btn-primary(type="submit", value="Submit")
+                a.btn.btn-default(href="/articles/"+article._id) Cancel
