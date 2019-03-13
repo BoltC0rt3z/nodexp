@@ -9,17 +9,17 @@ const passport = require("passport");
 const moment = require("moment");
 
 // Configure Database
-mongoose.connect(config.database, { useNewUrlParser: true });
+mongoose.connect(process.env.MONGODB_URI || config.database, { useNewUrlParser: true });
 let db = mongoose.connection;
 
 // Logger function
 const logger = (req, res, next) => {
   console.log(
-    `${req.method} : ${req.protocol}://${req.get("host")}${req.originalUrl} : ${moment().format(
-      "llll"
-    )}`
+    `${req.method} : ${req.protocol}://${req.get("host")}${
+      req.originalUrl
+    } : ${moment().format("llll")}`
   );
-  next()
+  next();
 };
 
 // Check connections
@@ -105,17 +105,19 @@ app.get("*", (req, res, next) => {
 
 // Main Route
 app.get("/", (req, res) => {
-  Articles.find({}, (error, articles) => {
-    if (error) {
-      console.log(error);
-    } else {
-      res.render("index", {
-        title: "Articles",
-        articles: articles,
-        moment: moment
-      });
-    }
-  });
+  Articles.find({})
+    .populate("author", ["name"])
+    .then((articles) => {
+      if (!articles) {
+        console.log(articles);
+      } else {
+        res.render("index", {
+          title: "Articles",
+          articles: articles,
+          moment: moment
+        });
+      }
+    });
 });
 
 // Route Files

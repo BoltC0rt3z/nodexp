@@ -1,9 +1,9 @@
 extends layout
 
 block content
-    .container.pt-3
+    .container.w-50.mt-5.shadow
         h1 Login
-        form(method="POST", action="/users/login")
+        form.py-3(method="POST", action="/users/login")
             #form-group
                 label Username:
                 input.form-control(name="username", type="text")

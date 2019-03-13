@@ -55,9 +55,9 @@ router.get("/edit/:id", ensureAuthenticated, (req, res) => {
 
   if (query) {
     Articles.findById(query, (error, article) => {
-      if (article.author != req.user._id) {
+      if (article.author && req.user_id && article.author != req.user._id) {
         req.flash("danger", "Not Authorized");
-        res.redirect("/");
+        res.redirect(`/articles/${article.id}`);
       } else {
         res.render("edit_article", {
           title: "Edit article",
@@ -95,7 +95,7 @@ router.delete("/:id", (req, res) => {
   let query = { _id: req.params.id };
 
   Articles.findById(req.params.id, (error, article) => {
-    if (article.author != req.user._id) {
+    if (article.author && req.user_id && article.author != req.user._id) {
       res.status(500).send();
     } else {
       Articles.deleteOne(query, error => {

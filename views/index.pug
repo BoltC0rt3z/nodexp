@@ -16,5 +16,5 @@ block content
                             h5.card-title
                                 a.text-dark(href="/articles/"+article._id)= article.title
                             p.card-text
-                                small.text-muted #{moment(article.created_on).fromNow()}
+                                small.text-muted #{article.author.name} | #{moment(article.created_on).fromNow()}
 

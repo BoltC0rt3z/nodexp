@@ -1,9 +1,9 @@
 extends layout
 
 block content
-    .container.pt-3
+    .container.mt-2.w-50.shadow
         h1 Register
-        form(method="POST", action="/users/register")
+        form.py-3(method="POST", action="/users/register")
             #form-group
                 label Name:
                 input.form-control(name="name", type="text", value=name)
