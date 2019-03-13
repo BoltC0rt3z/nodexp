@@ -7,9 +7,12 @@ const expressValidator = require("express-validator");
 const config = require("./config/database");
 const passport = require("passport");
 const moment = require("moment");
+const faker = require("faker");
 
 // Configure Database
-mongoose.connect(process.env.MONGODB_URI || config.database, { useNewUrlParser: true });
+mongoose.connect(process.env.MONGODB_URI || config.database, {
+  useNewUrlParser: true
+});
 let db = mongoose.connection;
 
 // Logger function
@@ -90,6 +93,12 @@ app.use(
   })
 );
 
+// Set Page Limit Middleware
+app.all(function(req, res, next) {
+  if (req.query.limit <= 9) req.query.limit = 9;
+  next();
+});
+
 // Passport config
 require("./config/passport")(passport);
 
@@ -104,20 +113,42 @@ app.get("*", (req, res, next) => {
 });
 
 // Main Route
-app.get("/", (req, res) => {
+app.get("/", function(req, res, next) {
+  var perPage = 9;
+  var page = req.params.page || 1;
+
   Articles.find({})
     .populate("author", ["name"])
-    .then((articles) => {
-      if (!articles) {
-        console.log(articles);
-      } else {
+    .skip(perPage * page - perPage)
+    .limit(perPage)
+    .exec(function(err, articles) {
+      Articles.count().exec(function(err, count) {
+        if (err) return next(err);
         res.render("index", {
           title: "Articles",
           articles: articles,
-          moment: moment
+          moment: moment,
+          current: page,
+          pages: Math.ceil(count / perPage)
         });
-      }
+      });
     });
+});
+
+app.get("/generate-fake-data", function(req, res, next) {
+  for (var i = 0; i < 90; i++) {
+    var article = new Articles();
+
+    article.title = faker.commerce.department();
+    article.image_url = faker.image.imageUrl();
+    article.author = req.user.id;
+    article.body = faker.commerce.productName();
+
+    article.save(function(err) {
+      if (err) throw err;
+    });
+  }
+  res.redirect("/");
 });
 
 // Route Files

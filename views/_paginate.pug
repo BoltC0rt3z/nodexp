@@ -1,0 +1,28 @@
+if (pages > 0)
+  ul.pagination.justify-content-center
+      if (current == 1)
+        li.page-item.mx-2.disabled
+          a.page-link() First
+      else
+        li.page-item.mx-2
+          a.page-link(href="/articles/pages/1") First
+      - var i = (Number(current) > 5 ? Number(current) - 4 : 1)
+      if (i !== 1)
+        li.page-item
+          a.page-link.px-4() ...
+      - for (; i <= (Number(current) + 4) && i <= pages; i++)
+          if (i == current)
+            li.page-item.active
+              a.page-link.px-4=i
+          else
+            li.page-item
+                a.page-link.px-4(href="/articles/pages/"+i)=i
+          if (i == Number(current) + 4 && i < pages)
+            li.page-item
+              a.page-link.px-4() ...
+      if (current == pages)
+        li.page-item.mx-2.disabled
+          a.page-link() Last
+      else
+        li.page-item.mx-2
+          a.page-link(href="/articles/pages/"+pages) Last

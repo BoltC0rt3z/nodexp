@@ -1,8 +1,8 @@
 extends layout
 
 block content
-    .container.pt-3
-        h1 #{Title}
+    .container.w-50.mt-5
+        h1 #{title}
         form(method="POST", action="/articles/edit/"+article._id)
             #form-group
                 label Title:

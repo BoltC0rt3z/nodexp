@@ -1,8 +1,8 @@
 extends layout
 
 block content
-    .container-fluid.px-0.mt-0
-        img.img-fluid(src='https://images.unsplash.com/photo-1499728603263-13726abce5fd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=3300&q=80', alt='image')
+    .container-fluid.px-0.mt-0.h-0
+        img.img-fluid.home-image(src='https://images.unsplash.com/photo-1499728603263-13726abce5fd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=3300&q=80', alt='image')
     .container
         br
         h1 #{title}
@@ -13,8 +13,10 @@ block content
                         - var url = article.image_url;
                         img.card-img-top(src=url alt="card_image" style=("height:250px"))
                         .card-body
-                            h5.card-title
+                            h5.card-title.pb-3(style=("height:50px"))
                                 a.text-dark(href="/articles/"+article._id)= article.title
-                            p.card-text
+                            p.card-text.pt-3
                                 small.text-muted #{article.author.name} | #{moment(article.created_on).fromNow()}
+        .container.pt-3
+            include _paginate
 

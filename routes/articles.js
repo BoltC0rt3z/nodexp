@@ -8,6 +8,30 @@ let Articles = require("../models/articles");
 //  User Models
 let User = require("../models/user");
 
+// Pagination Route
+router.get("/pages/:page", function(req, res, next) {
+  var perPage = 9;
+  var page = req.params.page || 1;
+
+  Articles.find({})
+    .populate("author", ["name"])
+    .skip(perPage * page - perPage)
+    .limit(perPage)
+    .exec(function(err, articles) {
+      Articles.count().exec(function(err, count) {
+        if (err) return next(err);
+        res.render("index", {
+          title: "Articles",
+          articles: articles,
+          moment: moment,
+          current: page,
+          pages: Math.ceil(count / perPage)
+        });
+      });
+    });
+});
+
+
 // Add Route
 router.get("/add", ensureAuthenticated, (req, res) => {
   res.render("add_articles", {
