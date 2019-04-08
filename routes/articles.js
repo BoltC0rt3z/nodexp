@@ -31,7 +31,6 @@ router.get("/pages/:page", function(req, res, next) {
     });
 });
 
-
 // Add Route
 router.get("/add", ensureAuthenticated, (req, res) => {
   res.render("add_articles", {
@@ -111,6 +110,31 @@ router.post("/edit/:id", ensureAuthenticated, (req, res) => {
   });
 });
 
+// Search Article
+router.get("/search", (req, res) => {
+  let { term } = req.query;
+  var perPage = 9;
+  var page = req.params.page || 1;
+
+  // Make lowercase
+  // term = term.toLowerCase();
+
+  Articles.find({"title": {'$regex': `${term}`}})
+    .populate("author", ["name"])
+    .skip(perPage * page - perPage)
+    .limit(perPage)
+    .then(articles =>
+      res.render("index", {
+        title: "Articlesq",
+        articles: articles,
+        moment: moment,
+        current: page,
+        pages: Math.ceil(articles.length / perPage)
+      })
+    )
+    .catch(err => console.log(err));
+});
+
 // Delete an article
 router.delete("/:id", (req, res) => {
   if (!req.user._id) {
@@ -132,6 +156,24 @@ router.delete("/:id", (req, res) => {
     }
   });
 });
+
+
+// Articles.find({})
+//   .populate("author", ["name"])
+//   .skip(perPage * page - perPage)
+//   .limit(perPage)
+//   .exec(function(err, articles) {
+//     Articles.count().exec(function(err, count) {
+//       if (err) return next(err);
+//       res.render("index", {
+//         title: "Articles",
+//         articles: articles,
+//         moment: moment,
+//         current: page,
+//         pages: Math.ceil(count / perPage)
+//       });
+//     });
+//   });
 
 // Get single article
 router.get("/:id", (req, res) => {

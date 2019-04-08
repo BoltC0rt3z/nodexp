@@ -124,6 +124,7 @@ app.get("/", function(req, res, next) {
     .exec(function(err, articles) {
       Articles.count().exec(function(err, count) {
         if (err) return next(err);
+        console.log(count)
         res.render("index", {
           title: "Articles",
           articles: articles,
